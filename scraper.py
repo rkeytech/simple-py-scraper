@@ -7,11 +7,15 @@ class Scraper:
         A class for implementing a scraper client with a basic functionality
     """
 
-    def __init__(self, headers):
+    def __init__(self, headers, params=None):
         self.headers = headers
+        self.params = params
 
     def make_soup(self, page):
-        r = requests.get(page, headers=self.headers)
+        if self.params:
+            r = requests.get(page, headers=self.headers, params=self.params)
+        else:
+            r = requests.get(page, headers=self.headers)
         if r.status_code == 200:
             return bs(r.content, 'lxml')
         else:
