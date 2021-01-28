@@ -3,6 +3,10 @@ import requests
 
 
 class Scraper:
+    """
+        A class for implementing a scraper client with a basic functionality
+    """
+
     def __init__(self, headers):
         self.headers = headers
 
@@ -16,3 +20,8 @@ class Scraper:
     def find_elems(self, soup, path):
         elems = soup.select(path)
         return elems
+
+    def write_to_file(self, file, results, apnd=True):
+        with open(file, 'w' if apnd else 'a') as f:
+            for result in results:
+                f.write(result)
